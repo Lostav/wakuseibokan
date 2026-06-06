@@ -48,6 +48,7 @@ def getAzimuthRadians(x1, z1, x2, z2):
 
 quadrant  = 0
 sp = 0
+escaping_water = False
 
 def getContinuosAzimuthRadians(x1,z1,x2,z2):
     global quadrant
