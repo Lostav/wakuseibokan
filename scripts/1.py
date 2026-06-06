@@ -183,21 +183,29 @@ class Controller:
                         steering = -1.0
                         thrust = 10.0
 
-                else:
-                    # Circle rival instead of stopping
-                    circle_bearing = turretbearing + 90.0
+                    else:
+                        global escaping_water
 
-                    if circle_bearing > 0.0:
-                        steering = 1.0
-                        thrust = 10.0
+                         # Circle rival instead of stopping
+                        circle_bearing = turretbearing + 90.0
+
+                        if circle_bearing > 0.0:
+                            steering = 1.0
                         
-                    elif circle_bearing < 0.0:
-                        steering = -1.0
-                        thrust = 10.0
+                        elif circle_bearing < 0.0:
+                            steering = -1.0
 
+                        # Water escape hysteresis
+                        if polardistance >= 1700:
+                            escaping_water = True
 
-                if polardistance >= 1700:
-                    thrust = -10.0   
+                        if polardistance <= 1000:
+                            escaping_water = False
+
+                        if escaping_water:
+                            thrust = -10.0
+                        else:
+                            thrust = 10.0 
 
                 if targetdistance < 2100:
                     command.command = FIRE
